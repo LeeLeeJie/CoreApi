@@ -45,7 +45,7 @@ namespace CoreApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("Test2")]
-        public IActionResult Test2(string loginName)
+        public IActionResult Test2(string loginName )
         {
             return Ok(loginName);
         }
