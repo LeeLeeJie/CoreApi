@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/CoreApiDebug
+/CoreApiDebug
+/CoreApiDebug/netcoreapp3.1
+/CoreApiDebug/netcoreapp3.1
