@@ -10,7 +10,11 @@ namespace CoreApi.Service.CommonService
 {
     public class ServerLogService: NLogBaseService
     {
-        protected override ILogger CurrentLogger => ServerRunTime.ServiceProvider?.GetService<ILoggerFactory>()
-            .GetApplicationLogger("EMS服务器运行日志");
+        protected ILoggerFactory LoggerFactory;
+        public ServerLogService(ILoggerFactory _loggerFactory)
+        {
+            LoggerFactory = _loggerFactory;
+        }
+        protected override ILogger CurrentLogger => LoggerFactory.GetApplicationLogger("服务器运行日志");
     }
 }

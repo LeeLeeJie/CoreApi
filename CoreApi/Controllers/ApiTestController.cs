@@ -6,9 +6,11 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
 using CoreApi.Common.Tools.Encryption;
 using CoreApi.IService.CommonEntities;
 using CoreApi.IService.ICommonService;
+using CoreApi.Service.CommonService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +22,16 @@ namespace CoreApi.Controllers
     {
         private readonly IJsonSerializer JsonSerializerService = null;
 
-        public ApiTestController(IJsonSerializer _jsonSerializer)
+        private readonly ILogService LogService;
+
+        private readonly ILifetimeScope Container;
+
+        public ApiTestController(IJsonSerializer _jsonSerializer, ILogService logService,
+            ILifetimeScope lifetimeScope)
         {
             JsonSerializerService = _jsonSerializer;
+            LogService = logService;
+            Container = lifetimeScope;
         }
 
         /// <summary>
@@ -36,7 +45,9 @@ namespace CoreApi.Controllers
             //RSAHelper rsaHelper = new RSAHelper(RSAType.RSA,Encoding.Default);
             //string tempStr = rsaHelper.Encrypt("www.baidu.com");
             //string resDecrypt = rsaHelper.Decrypt(tempStr);
-            string aa = JsonSerializerService.ToJson(new JwtAuthConfigModel());
+            LogService.LogInformation(loginName);
+            //string aa = JsonSerializerService.ToJson(new JwtAuthConfigModel());
+            string aa = Container?.Resolve<IJsonSerializer>()?.ToJson(new JwtAuthConfigModel());
             return Ok(aa);
         }
         /// <summary>

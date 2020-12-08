@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Configuration;
+using Autofac.Core;
+using Autofac.Extensions.DependencyInjection;
+using CoreApi.Common;
 using CoreApi.IService.CommonEntities;
 using CoreApi.IService.ICommonService;
 using CoreApi.Service.CommonService;
@@ -32,13 +35,13 @@ namespace CoreApi
             //      每一个依赖组件或调用Resolve()方法创建一个单一的共享的实例，并且子生命周期域共享父生命周期域中的实例
             //containerBuilder.RegisterType<UserService>().InstancePerOwned<IUserService>();
 
-            #region 手动注册模式，耦合度太高
+            #region 直接注册某一个类和接口,左边的是实现类,右边的As是接口
 
             containerBuilder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
             containerBuilder.RegisterType<ServerLogService>().As<ILogService>().SingleInstance();
             #endregion
 
-            #region 反射方式注入
+            #region 反射方式注入,适用于无接口注入
             //Assembly service = Assembly.Load("AspNetCore.Ioc.Service");
             //Assembly iservice = Assembly.Load("AspNetCore.Ioc.Interface");
             //containerBuilder.RegisterAssemblyTypes(service, iservice)
@@ -57,6 +60,21 @@ namespace CoreApi
             ConfigurationModule module = new ConfigurationModule(root);
             //根据配置文件的内容注册服务
             containerBuilder.RegisterModule(module);
+            //aotuofac服务注册完成回调
+            containerBuilder.RegisterBuildCallback(lifetimeScope =>
+            {
+                var tempContainer = lifetimeScope as IContainer;
+                //using (tempContainer)
+                //{
+                //    var manager = tempContainer.Resolve<ILoggerFactory>();
+                //}
+            });
+            //using (var container = containerBuilder.Build())
+            //{
+
+            //    var manager = container.Resolve<ILoggerFactory>();
+            //}
+
             #endregion
         }
     }

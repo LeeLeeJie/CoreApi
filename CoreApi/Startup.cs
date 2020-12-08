@@ -28,10 +28,7 @@ namespace CoreApi
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
-        //autofac 新增
-        public ILifetimeScope AutofacContainer { get; private set; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -72,9 +69,6 @@ namespace CoreApi
                 c.RoutePrefix = "";
             });
             #endregion
-
-            //autofac 新增 可选
-            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
