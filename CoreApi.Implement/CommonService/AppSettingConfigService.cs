@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
-using CoreApi.Interface.CommonEntities;
-using CoreApi.Interface.ICommonService;
+using CoreApi.Service.CommonService;
+using CoreApi.IService.CommonEntities;
+using CoreApi.IService.ICommonService;
 
-namespace CoreApi.Implement.CommonService
+namespace CoreApi.Service.CommonService
 {
     public class AppSettingConfigService: JsonConfigBaseService<AppSettingModel>
     {

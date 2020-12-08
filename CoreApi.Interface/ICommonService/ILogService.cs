@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoreApi.Interface.ICommonService
+namespace CoreApi.IService.ICommonService
 {
     public interface ILogService
     {

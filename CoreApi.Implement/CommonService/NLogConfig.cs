@@ -5,7 +5,7 @@ using System.Text;
 using NLog;
 using NLog.Targets.Wrappers;
 
-namespace CoreApi.Implement.CommonService
+namespace CoreApi.Service.CommonService
 {
     public static class NLogConfig
     {

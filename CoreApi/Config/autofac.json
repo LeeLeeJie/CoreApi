@@ -1,11 +1,11 @@
 {
-  "defaultAssembly": "CoreApi.Interface", //接口所在的程序集名称
+  "defaultAssembly": "CoreApi.IService", //接口所在的程序集名称
   "components": [
     {
-      "type": "CoreApi.Implement.CommonService.NLogBaseService,CoreApi.Implement.CommonService", //接口的实现全名称
+      "type": "CoreApi.Service.CommonService.JsonSerializerService,CoreApi.Service", //接口的实现全名称
       "services": [
         {
-          "type": "CoreApi.Interface.ICommonService.ILogService,CoreApi.Interface.ICommonService" //接口的全名称
+          "type": "CoreApi.IService.ICommonService.IJsonSerializer,CoreApi.IService" //接口的全名称
         }
       ],
       "instanceScope": "single-instance", //单例生命周期

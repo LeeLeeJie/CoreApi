@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CoreApi.Interface.ICommonService;
+using CoreApi.IService.ICommonService;
 
-namespace CoreApi.Interface.CommonEntities
+namespace CoreApi.IService.CommonEntities
 {
     public class AppSettingModel: IConfig
     {

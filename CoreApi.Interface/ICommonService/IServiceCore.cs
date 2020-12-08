@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CoreApi.Interface.CommonEntities;
+using CoreApi.IService.CommonEntities;
 
-namespace CoreApi.Interface.ICommonService
+namespace CoreApi.IService.ICommonService
 {
     public interface IServiceCore
     {

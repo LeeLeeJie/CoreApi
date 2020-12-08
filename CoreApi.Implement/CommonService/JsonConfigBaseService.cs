@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using CoreApi.Common.Tools;
-using CoreApi.Interface.ICommonService;
-using OperateResult = CoreApi.Interface.CommonEntities.OperateResult;
+using CoreApi.IService.ICommonService;
+using CoreApi.IService.CommonEntities;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
-namespace CoreApi.Implement.CommonService
+namespace CoreApi.Service.CommonService
 {
     public abstract class JsonConfigBaseService<TConfig> : IJsonConfigService<TConfig>
         where TConfig : IConfig, new()
@@ -71,12 +75,12 @@ namespace CoreApi.Implement.CommonService
         ///     读取配置集
         /// </summary>
         /// <returns></returns>
-        public virtual Interface.CommonEntities.OperateResult<TConfig> ReadConfig()
+        public virtual OperateResult<TConfig> ReadConfig()
         {
             try
             {
                 if (!File.Exists(ConfigFileFullPath))
-                    return new Interface.CommonEntities.OperateResult<TConfig>(false, $"文件不存在：【{ConfigFileFullPath}】");
+                    return new OperateResult<TConfig>(false, $"文件不存在：【{ConfigFileFullPath}】");
 
                 var sr = new StreamReader(ConfigFileFullPath, Encoding.UTF8);
                 var fileContent = sr.ReadToEnd();
@@ -91,12 +95,12 @@ namespace CoreApi.Implement.CommonService
                 else
                     current = cfgObj;
 
-                return new Interface.CommonEntities.OperateResult<TConfig>(current);
+                return new OperateResult<TConfig>(current);
             }
             catch (Exception e)
             {
                 LogService?.LogError(e, e.Message, null);
-                return new Interface.CommonEntities.OperateResult<TConfig>(e);
+                return new OperateResult<TConfig>(e);
             }
         }
 
@@ -108,7 +112,6 @@ namespace CoreApi.Implement.CommonService
         public virtual OperateResult WriteConfig(TConfig appCfg)
         {
             if (appCfg == null) return new OperateResult(false, $"{nameof(appCfg)}为空");
-
             try
             {
                 if (!Directory.Exists(ConfigDirectoryPath))
@@ -116,7 +119,6 @@ namespace CoreApi.Implement.CommonService
                 var sw = new StreamWriter(ConfigFileFullPath, false, Encoding.UTF8);
                 sw.WriteLine(JsonSerializer.ToNestedJson(appCfg));
                 sw.Close();
-
                 current = appCfg;
                 return new OperateResult();
             }
@@ -164,7 +166,6 @@ namespace CoreApi.Implement.CommonService
         {
             return new OperateResult();
         }
-
         #region Parameters
 
         protected readonly IJsonSerializer JsonSerializer;

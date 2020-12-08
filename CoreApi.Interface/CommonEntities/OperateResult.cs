@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoreApi.Interface.CommonEntities
+namespace CoreApi.IService.CommonEntities
 {
     /// <summary>
     ///     泛型的结果信息

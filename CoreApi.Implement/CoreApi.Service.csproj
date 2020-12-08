@@ -5,16 +5,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\CoreApiDebug\</OutputPath>
+    <OutputPath>bin\Debug\netcoreapp3.1\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CoreApi.Common\CoreApi.Common.csproj" />
-    <ProjectReference Include="..\CoreApi.Interface\CoreApi.Interface.csproj" />
+    <ProjectReference Include="..\CoreApi.Interface\CoreApi.IService.csproj" />
   </ItemGroup>
 
 </Project>

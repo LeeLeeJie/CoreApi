@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreApi.Interface.ICommonService;
+using CoreApi.IService.ICommonService;
 using Microsoft.Extensions.Logging;
 
-namespace CoreApi.Implement.CommonService
+namespace CoreApi.Service.CommonService
 {
     public abstract class NLogBaseService : ILogService
     {
-        public abstract bool DebugMode { get; }
+        //public abstract bool DebugMode { get; }
 
         protected abstract ILogger CurrentLogger { get; }
 

@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApi", "CoreApi\CoreApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApi.Common", "CoreApi.Common\CoreApi.Common.csproj", "{0644B47D-1DEE-4456-9551-F2C015412C4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApi.Model", "CoreApi.Model\CoreApi.Model.csproj", "{083D766B-5BA7-4DE6-B506-A83E53EB1C94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApi.Model", "CoreApi.Model\CoreApi.Model.csproj", "{083D766B-5BA7-4DE6-B506-A83E53EB1C94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApi.Interface", "CoreApi.Interface\CoreApi.Interface.csproj", "{318909E4-02E1-4B6B-A979-BBD4E1D893D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApi.IService", "CoreApi.Interface\CoreApi.IService.csproj", "{318909E4-02E1-4B6B-A979-BBD4E1D893D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApi.Implement", "CoreApi.Implement\CoreApi.Implement.csproj", "{4BDFE6B3-7E16-447A-ACC8-F831663773BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApi.Service", "CoreApi.Implement\CoreApi.Service.csproj", "{4BDFE6B3-7E16-447A-ACC8-F831663773BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

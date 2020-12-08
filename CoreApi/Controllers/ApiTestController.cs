@@ -7,7 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using CoreApi.Common.Tools.Encryption;
-using CoreApi.Interface.ICommonService;
+using CoreApi.IService.CommonEntities;
+using CoreApi.IService.ICommonService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,11 @@ namespace CoreApi.Controllers
     [ApiController]
     public class ApiTestController : ControllerBase
     {
-        private readonly ILogService LogService = null;
+        private readonly IJsonSerializer JsonSerializerService = null;
 
-        public ApiTestController(ILogService _logService)
+        public ApiTestController(IJsonSerializer _jsonSerializer)
         {
-            LogService = _logService;
+            JsonSerializerService = _jsonSerializer;
         }
 
         /// <summary>
@@ -35,8 +36,8 @@ namespace CoreApi.Controllers
             //RSAHelper rsaHelper = new RSAHelper(RSAType.RSA,Encoding.Default);
             //string tempStr = rsaHelper.Encrypt("www.baidu.com");
             //string resDecrypt = rsaHelper.Decrypt(tempStr);
-            LogService.LogInformation(loginName);
-            return Ok();
+            string aa = JsonSerializerService.ToJson(new JwtAuthConfigModel());
+            return Ok(aa);
         }
         /// <summary>
         /// 生成Https证书
