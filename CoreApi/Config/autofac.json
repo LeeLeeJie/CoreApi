@@ -1,6 +1,7 @@
 {
   "defaultAssembly": "CoreApi.IService", //接口所在的程序集名称
   "components": [
+    //序列化服务注入
     {
       "type": "CoreApi.Service.CommonService.JsonSerializerService,CoreApi.Service", //接口的实现全名称
       "services": [
@@ -10,6 +11,28 @@
       ],
       "instanceScope": "single-instance", //单例生命周期
       "injectProperties": true //是否支持属性注入
+    },
+    //服务日志服务注入
+    {
+      "type": "CoreApi.Service.CommonService.ServerLogService,CoreApi.Service", //接口的实现全名称
+      "services": [
+        {
+          "type": "CoreApi.IService.ICommonService.ILogService,CoreApi.IService" //接口的全名称
+        }
+      ],
+      "instanceScope": "single-instance", //单例生命周期
+      "injectProperties": true //是否支持属性注入
     }
+    //appSetting服务注入
+    //{
+    //  "type": "CoreApi.Service.CommonService.AppSettingConfigService,CoreApi.Service", //接口的实现全名称
+    //  "services": [
+    //    {
+    //      "type": "CoreApi.IService.ICommonService.IJsonConfigService<AppSettingModel>,CoreApi.IService" //接口的全名称
+    //    }
+    //  ],
+    //  "instanceScope": "single-instance", //单例生命周期
+    //  "injectProperties": true //是否支持属性注入
+    //}
   ]
 }

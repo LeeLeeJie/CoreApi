@@ -36,9 +36,9 @@ namespace CoreApi
             //containerBuilder.RegisterType<UserService>().InstancePerOwned<IUserService>();
 
             #region 直接注册某一个类和接口,左边的是实现类,右边的As是接口
-
-            containerBuilder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
-            containerBuilder.RegisterType<ServerLogService>().As<ILogService>().SingleInstance();
+            //containerBuilder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
+            //containerBuilder.RegisterType<ServerLogService>().As<ILogService>().SingleInstance();
+            containerBuilder.RegisterType<AppSettingConfigService>().As<IJsonConfigService<AppSettingModel>>().SingleInstance();
             #endregion
 
             #region 反射方式注入,适用于无接口注入
@@ -63,17 +63,8 @@ namespace CoreApi
             //aotuofac服务注册完成回调
             containerBuilder.RegisterBuildCallback(lifetimeScope =>
             {
-                var tempContainer = lifetimeScope as IContainer;
-                //using (tempContainer)
-                //{
-                //    var manager = tempContainer.Resolve<ILoggerFactory>();
-                //}
+                ServerRunTime.ServiceContainer = (IContainer)lifetimeScope;
             });
-            //using (var container = containerBuilder.Build())
-            //{
-
-            //    var manager = container.Resolve<ILoggerFactory>();
-            //}
 
             #endregion
         }

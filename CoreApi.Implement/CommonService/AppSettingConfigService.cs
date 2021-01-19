@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Text;
+using CoreApi.Common.Tools;
 using CoreApi.Service.CommonService;
 using CoreApi.IService.CommonEntities;
 using CoreApi.IService.ICommonService;
@@ -23,5 +25,10 @@ namespace CoreApi.Service.CommonService
         ///     配置文件名
         /// </summary>
         public override string ConfigFileName => "Appsettings";
+
+        /// <summary>
+        ///     配置文件名
+        /// </summary>
+        public override string ConfigPath => ConstantDefine.AppSettingPath;
     }
 }

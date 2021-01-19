@@ -9,5 +9,7 @@ namespace CoreApi.Common.Tools
     public class ConstantDefine
     {
         public static string ConfigPath => $"{Path.Combine(PathExtension.GetExecutingPath(), "Configs")}";
+
+        public static string AppSettingPath => PathExtension.GetExecutingPath();
     }
 }

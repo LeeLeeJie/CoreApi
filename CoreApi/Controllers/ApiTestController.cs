@@ -7,31 +7,32 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using CoreApi.Common;
 using CoreApi.Common.Tools.Encryption;
 using CoreApi.IService.CommonEntities;
 using CoreApi.IService.ICommonService;
 using CoreApi.Service.CommonService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiTestController : ControllerBase
+    public class ApiTestController : Controller
     {
         private readonly IJsonSerializer JsonSerializerService = null;
 
+        private readonly IJsonConfigService<AppSettingModel> ConfigService;
+
         private readonly ILogService LogService;
 
-        private readonly ILifetimeScope Container;
-
-        public ApiTestController(IJsonSerializer _jsonSerializer, ILogService logService,
-            ILifetimeScope lifetimeScope)
+        public ApiTestController(IJsonSerializer _jsonSerializer, ILogService logService, IJsonConfigService<AppSettingModel> configService)
         {
             JsonSerializerService = _jsonSerializer;
             LogService = logService;
-            Container = lifetimeScope;
+            ConfigService = configService;
         }
 
         /// <summary>
@@ -45,9 +46,10 @@ namespace CoreApi.Controllers
             //RSAHelper rsaHelper = new RSAHelper(RSAType.RSA,Encoding.Default);
             //string tempStr = rsaHelper.Encrypt("www.baidu.com");
             //string resDecrypt = rsaHelper.Decrypt(tempStr);
-            LogService.LogInformation(loginName);
+            var settingConfig = ConfigService?.Current;
+            LogService.LogInformation($"LogService-{loginName}");
             //string aa = JsonSerializerService.ToJson(new JwtAuthConfigModel());
-            string aa = Container?.Resolve<IJsonSerializer>()?.ToJson(new JwtAuthConfigModel());
+            string aa = ServerRunTime.ServiceContainer.Resolve<IJsonSerializer>()?.ToJson(new JwtAuthConfigModel());
             return Ok(aa);
         }
         /// <summary>

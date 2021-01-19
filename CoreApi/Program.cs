@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using CoreApi.Service.CommonService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace CoreApi
 {
@@ -23,6 +26,14 @@ namespace CoreApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging((ILoggingBuilder logBuilder) =>
+                {
+                    logBuilder.AddNLog();
+                    logBuilder.AddConsole();
+                    NLog.LogManager.LoadConfiguration("Config/NLog.config");
+                    //NLogConfig.ConfigNLog();
                 });
+
     }
 }

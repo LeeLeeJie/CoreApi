@@ -41,16 +41,11 @@ namespace CoreApi.Service.CommonService
 
         #endregion
 
-        public bool IsWeb = false;
-
         protected string ConfigDirectoryPath
         {
             get
             {
-                if (IsWeb)
-                    return $"{Path.Combine(AppDomain.CurrentDomain.RelativeSearchPath, "Configs")}";
-                else
-                    return ConstantDefine.ConfigPath;
+                return ConfigPath;
             }
         }
 
@@ -58,10 +53,7 @@ namespace CoreApi.Service.CommonService
         {
             get
             {
-                if (IsWeb)
-                    return $"{Path.Combine(AppDomain.CurrentDomain.RelativeSearchPath, "Configs", ConfigFileName)}.json";
-                else
-                    return $"{Path.Combine(ConstantDefine.ConfigPath, ConfigFileName)}.json";
+                return $"{Path.Combine(ConfigPath, ConfigFileName)}.json";
             }
         }
 
@@ -70,6 +62,11 @@ namespace CoreApi.Service.CommonService
         ///     配置文件名
         /// </summary>
         public abstract string ConfigFileName { get; }
+
+        /// <summary>
+        ///     配置文件名
+        /// </summary>
+        public virtual string ConfigPath => ConstantDefine.ConfigPath;
 
         /// <summary>
         ///     读取配置集
