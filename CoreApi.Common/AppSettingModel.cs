@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SqlSugar;
 
-namespace CoreApi.Model.ConfigModel
+namespace CoreApi.Common
 {
-    public class JwtAuthConfigModel : BaseConfigModel
+    public class AppSettingModel
     {
-        public JwtAuthConfigModel()
-        {
-            try
-            {
-                JWTSecretKey = Configuration["JwtAuth:SecurityKey"];
-                WebExp = int.Parse(Configuration["JwtAuth:WebExp"]);
-                AppExp = int.Parse(Configuration["JwtAuth:AppExp"]);
-                MiniProgramExp = int.Parse(Configuration["JwtAuth:MiniProgramExp"]);
-                OtherExp = int.Parse(Configuration["JwtAuth:OtherExp"]);
-                Issuer = Configuration["JwtAuth:Issuer"];
-                Audience = Configuration["JwtAuth:Audience"];
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
+        /// <summary>
+        /// Jwt配置
+        /// </summary>
+        public JwtAuthConfigModel JwtAuthConfig;
+        /// <summary>
+        /// 数据库配置
+        /// </summary>
+        public DatabaseConfigModel DatabaseConfig;
+    }
+
+    public class JwtAuthConfigModel
+    {
         /// <summary>
         /// 加密密钥
         /// </summary>
@@ -56,5 +51,11 @@ namespace CoreApi.Model.ConfigModel
         /// 接收者
         /// </summary>
         public string Audience { get; set; }
+    }
+
+    public class DatabaseConfigModel
+    {
+        public string ConnectionString { get; set; }
+        public DbType DbType { get; set; } = DbType.SqlServer;
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using CoreApi.Common;
 using CoreApi.Common.Tools;
 using CoreApi.IService.ICommonService;
-using CoreApi.IService.CommonEntities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 namespace CoreApi.Service.CommonService
 {
     public abstract class JsonConfigBaseService<TConfig> : IJsonConfigService<TConfig>
-        where TConfig : IConfig, new()
+        where TConfig : new()
     {
         protected TConfig current;
 

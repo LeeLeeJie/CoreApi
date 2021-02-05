@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreApi.Common\CoreApi.Common.csproj" />
-    <ProjectReference Include="..\CoreApi.Implement\CoreApi.Service.csproj" />
+    <ProjectReference Include="..\CoreApi.Extensions\CoreApi.Extensions.csproj" />
     <ProjectReference Include="..\CoreApi.Interface\CoreApi.IService.csproj" />
   </ItemGroup>
 

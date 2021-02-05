@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CoreApi.IService.CommonEntities;
+using CoreApi.Common;
 
 namespace CoreApi.IService.ICommonService
 {
     public interface IJsonConfigService<TConfig> : IServiceCore
-        where TConfig : IConfig
     {
         /// <summary>
         /// 配置文件内容

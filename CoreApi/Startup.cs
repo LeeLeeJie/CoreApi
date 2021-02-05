@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CoreApi.Common;
+using CoreApi.Extensions.ServiceExtensions;
 using CoreApi.IService.ICommonService;
-using CoreApi.Model.ConfigModel;
-using CoreApi.Service.CommonService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -54,6 +53,8 @@ namespace CoreApi
 
             });
             #endregion
+
+            //services.Configure<DatabaseConfigModel>(Configuration.GetSection("DatabaseConfig"));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -97,7 +98,11 @@ namespace CoreApi
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
             #region 简化反射方式注入
-            containerBuilder.RegisterModule<MyAutofacModule>();
+            containerBuilder.RegisterModule(new AutofacModuleRegister());
+            containerBuilder.RegisterBuildCallback(lifetimeScope =>
+            {
+                ServerRunTime.ServiceContainer = (IContainer)lifetimeScope;
+            });
             #endregion
         }
     }

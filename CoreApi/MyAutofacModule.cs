@@ -9,9 +9,7 @@ using Autofac.Configuration;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using CoreApi.Common;
-using CoreApi.IService.CommonEntities;
 using CoreApi.IService.ICommonService;
-using CoreApi.Service.CommonService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -38,17 +36,20 @@ namespace CoreApi
             #region 直接注册某一个类和接口,左边的是实现类,右边的As是接口
             //containerBuilder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
             //containerBuilder.RegisterType<ServerLogService>().As<ILogService>().SingleInstance();
-            containerBuilder.RegisterType<AppSettingConfigService>().As<IJsonConfigService<AppSettingModel>>().SingleInstance();
+
+            //containerBuilder.RegisterType<AppSettingConfigService>().As<IJsonConfigService<AppSettingModel>>().SingleInstance();
+            //containerBuilder.RegisterType<EntityService>().As<IEntity>().SingleInstance();
+            //containerBuilder.RegisterType<BaseRepositoryService<EntityBase>>().As<IBaseRepository<EntityBase>>().SingleInstance();
             #endregion
 
             #region 反射方式注入,适用于无接口注入
-            //Assembly service = Assembly.Load("AspNetCore.Ioc.Service");
-            //Assembly iservice = Assembly.Load("AspNetCore.Ioc.Interface");
-            //containerBuilder.RegisterAssemblyTypes(service, iservice)
-            //    .Where(t => t.FullName.EndsWith("Service") && !t.IsAbstract) //类名以service结尾，且类型不能是抽象的　
-            //    .InstancePerLifetimeScope() //生命周期，，
-            //    .AsImplementedInterfaces()
-            //    .PropertiesAutowired(); //属性注入
+            Assembly service = Assembly.Load("CoreApi.Repository");
+//            Assembly service = Assembly.Load("CoreApi.Repository");
+            containerBuilder.RegisterAssemblyTypes(service)
+                .Where(t => !t.IsAbstract) //类名以service结尾，且类型不能是抽象的　
+                .InstancePerLifetimeScope() //生命周期，，
+                .AsImplementedInterfaces()
+                .PropertiesAutowired(); //属性注入
             #endregion
 
             #region V2

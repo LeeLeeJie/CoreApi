@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection.Metadata;
 using System.Text;
+using CoreApi.Common;
 using CoreApi.Common.Tools;
 using CoreApi.Service.CommonService;
-using CoreApi.IService.CommonEntities;
 using CoreApi.IService.ICommonService;
 
 namespace CoreApi.Service.CommonService

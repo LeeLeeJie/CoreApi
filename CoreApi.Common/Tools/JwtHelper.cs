@@ -4,7 +4,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using CoreApi.Model.ConfigModel;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
