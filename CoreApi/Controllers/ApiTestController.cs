@@ -60,14 +60,15 @@ namespace CoreApi.Controllers
         [HttpGet("Test2")]
         public IActionResult Test2()
         {
-            //var alarmDataService = ServerRunTime.ServiceContainer.Resolve<IAlarmDataService>();
-            //List<AlarmData>  alarmDatas = alarmDataService.Query().Result;
-            Stopwatch stopwatch2 = new Stopwatch();
-            stopwatch2.Start();
-            var bcuDataService = ServerRunTime.ServiceContainer.Resolve<IBcuDataService>();
-            List<BcuData>  bcuDatas = bcuDataService.Query().Result;
-            stopwatch2.Stop();
-            return Ok(new OperateResult<long>(stopwatch2.ElapsedMilliseconds));
+            var aa = ConfigService.Current.DatabaseConfig;
+            var alarmDataService = ServerRunTime.ServiceContainer.Resolve<IAlarmDataService>();
+            List<AlarmData> alarmDatas = alarmDataService.Query().Result;
+            //Stopwatch stopwatch2 = new Stopwatch();
+            //stopwatch2.Start();
+            //var bcuDataService = ServerRunTime.ServiceContainer.Resolve<IBcuDataService>();
+            //List<BcuData>  bcuDatas = bcuDataService.Query().Result;
+            //stopwatch2.Stop();
+            return Ok(new OperateResult<List<AlarmData>>(alarmDatas));
         }
 
 

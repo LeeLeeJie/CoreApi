@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreApi.Implement\CoreApi.Service.csproj" />
+    <ProjectReference Include="..\CoreApi.Interface\CoreApi.IService.csproj" />
     <ProjectReference Include="..\CoreApi.Repository\CoreApi.Repository.csproj" />
   </ItemGroup>
 

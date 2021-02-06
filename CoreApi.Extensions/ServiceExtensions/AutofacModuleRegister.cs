@@ -5,7 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using CoreApi.Common;
+using CoreApi.Extensions.AOP;
+using CoreApi.Extensions.Cache;
+using CoreApi.IService.ICommonService;
 using CoreApi.Repository;
+using CoreApi.Service.CommonService;
 
 namespace CoreApi.Extensions.ServiceExtensions
 {
@@ -39,14 +44,26 @@ namespace CoreApi.Extensions.ServiceExtensions
             //    builder.RegisterType<BlogLogAOP>();
             //    cacheType.Add(typeof(BlogLogAOP));
             //}
-            containerBuilder.RegisterGeneric(typeof(BaseRepositoryService<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();;//注册仓储
+
+            //containerBuilder.RegisterType<MemoryCaching>().As<ICaching>().InstancePerLifetimeScope();
+            //可以直接替换其他拦截器！一定要把拦截器进行注册
+            containerBuilder.RegisterType<LogAop>();
+            containerBuilder.RegisterType<CacheAOP>();
+            containerBuilder.RegisterGeneric(typeof(BaseRepositoryService<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();//注册仓储
+            containerBuilder.RegisterType(typeof(AppSettingConfigService)).As(typeof(IJsonConfigService<AppSettingModel>)).SingleInstance();//注册读取配置文件服务
+            containerBuilder.RegisterType<ServerLogService>().As<ILogService>().SingleInstance();
+
+            
+
+
             // 获取 Service.dll 程序集服务，并注册
             var assemblysServices = Assembly.LoadFrom(servicesDllFile);
             containerBuilder.RegisterAssemblyTypes(assemblysServices)
                 .AsImplementedInterfaces()
                 .InstancePerDependency()
                 .EnableInterfaceInterceptors()//引用Autofac.Extras.DynamicProxy;
-                .InterceptedBy(cacheType.ToArray());//允许将拦截器服务的列表分配给注册。
+                //.InterceptedBy(cacheType.ToArray());//允许将拦截器服务的列表分配给注册。
+                .InterceptedBy(typeof(LogAop),typeof(CacheAOP));//允许将拦截器服务的列表分配给注册。
 
             // 获取 Repository.dll 程序集服务，并注册
             var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CoreApi.Common;
+using CoreApi.Extensions.Cache;
 using CoreApi.Extensions.ServiceExtensions;
 using CoreApi.IService.ICommonService;
 using Microsoft.AspNetCore.Builder;
@@ -54,7 +55,8 @@ namespace CoreApi
             });
             #endregion
 
-            //services.Configure<DatabaseConfigModel>(Configuration.GetSection("DatabaseConfig"));
+            services.AddMemoryCache();
+            services.AddScoped<ICaching, MemoryCaching>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
