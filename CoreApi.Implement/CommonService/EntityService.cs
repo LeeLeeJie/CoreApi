@@ -12,10 +12,9 @@ namespace CoreApi.Service.CommonService
     public class EntityService : IEntity
     {
         public SqlSugarClient db;
-
-        public EntityService(IConfiguration configuration)
+        public EntityService(IJsonConfigService<AppSettingModel> configService)
         {
-            DbContext.Init(configuration.GetSection(nameof(AppSettingModel.DatabaseConfig)).Get<DatabaseConfigModel>());
+            DbContext.Init(configService?.Current.DatabaseConfig);
             db = DbContext.GetDbContext().Db;
         }
         /// <summary>

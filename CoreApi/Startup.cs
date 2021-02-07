@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CoreApi.Common;
+using CoreApi.Common.Helper;
+using CoreApi.Common.Redis;
 using CoreApi.Extensions.Cache;
 using CoreApi.Extensions.ServiceExtensions;
 using CoreApi.IService.ICommonService;
@@ -20,6 +22,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NLog.Extensions.Logging;
+using StackExchange.Redis;
 
 namespace CoreApi
 {
@@ -57,6 +60,19 @@ namespace CoreApi
 
             services.AddMemoryCache();
             services.AddScoped<ICaching, MemoryCaching>();
+            services.AddTransient<IRedisBasketRepository, RedisBasketRepository>();
+            // 配置启动Redis服务，虽然可能影响项目启动速度，但是不能在运行的时候报错，所以是合理的
+            services.AddSingleton<ConnectionMultiplexer>(sp =>
+            {
+                //获取连接字符串
+                string redisConfiguration = AppsettingsHelper.app(new string[] { "Redis", "ConnectionString" });
+
+                var configuration = ConfigurationOptions.Parse(redisConfiguration, true);
+
+                configuration.ResolveDns = true;
+
+                return ConnectionMultiplexer.Connect(configuration);
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using CoreApi.Common;
+using CoreApi.IService.ICommonService;
 using CoreApi.Repository;
 using Microsoft.Extensions.Configuration;
 using SqlSugar;
@@ -33,9 +34,9 @@ namespace CoreApi.Repository
         //    get { return entityDB; }
         //    private set { entityDB = value; }
         //}
-        public BaseRepositoryService(IConfiguration configuration)
+        public BaseRepositoryService(IJsonConfigService<AppSettingModel> configService)
         {
-            DbContext.Init(configuration.GetSection(nameof(AppSettingModel.DatabaseConfig)).Get<DatabaseConfigModel>());
+            DbContext.Init(configService?.Current.DatabaseConfig);
             context = DbContext.GetDbContext();
             _db = context.Db;
             entityDB = context.GetEntityDB<TEntity>(_db);

@@ -50,11 +50,8 @@ namespace CoreApi.Extensions.ServiceExtensions
             containerBuilder.RegisterType<LogAop>();
             containerBuilder.RegisterType<CacheAOP>();
             containerBuilder.RegisterGeneric(typeof(BaseRepositoryService<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();//注册仓储
-            containerBuilder.RegisterType(typeof(AppSettingConfigService)).As(typeof(IJsonConfigService<AppSettingModel>)).SingleInstance();//注册读取配置文件服务
+            containerBuilder.RegisterGeneric(typeof(JsonConfigBaseService<>)).As(typeof(IJsonConfigService<>)).InstancePerDependency();//注册读取配置文件服务
             containerBuilder.RegisterType<ServerLogService>().As<ILogService>().SingleInstance();
-
-            
-
 
             // 获取 Service.dll 程序集服务，并注册
             var assemblysServices = Assembly.LoadFrom(servicesDllFile);

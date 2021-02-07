@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace CoreApi.Service.CommonService
 {
-    public abstract class JsonConfigBaseService<TConfig> : IJsonConfigService<TConfig>
+    public class JsonConfigBaseService<TConfig> : IJsonConfigService<TConfig>
         where TConfig : new()
     {
         protected TConfig current;
@@ -32,8 +32,7 @@ namespace CoreApi.Service.CommonService
         }
 
         #region Ctor
-
-        protected JsonConfigBaseService(ILogService logService, IJsonSerializer jsonSerializer)
+        public JsonConfigBaseService(ILogService logService, IJsonSerializer jsonSerializer)
         {
             LogService = logService;
             JsonSerializer = jsonSerializer;
@@ -41,7 +40,7 @@ namespace CoreApi.Service.CommonService
 
         #endregion
 
-        protected string ConfigDirectoryPath
+        public string ConfigDirectoryPath
         {
             get
             {
@@ -49,7 +48,7 @@ namespace CoreApi.Service.CommonService
             }
         }
 
-        protected string ConfigFileFullPath
+        public string ConfigFileFullPath
         {
             get
             {
@@ -61,7 +60,12 @@ namespace CoreApi.Service.CommonService
         /// <summary>
         ///     配置文件名
         /// </summary>
-        public abstract string ConfigFileName { get; }
+        public virtual string ConfigFileName { get; }
+
+        /// <summary>
+        ///     服务描述
+        /// </summary>
+        public virtual string ServiceDescription { get; }
 
         /// <summary>
         ///     配置文件名
@@ -125,11 +129,6 @@ namespace CoreApi.Service.CommonService
                 return new OperateResult(e);
             }
         }
-
-        /// <summary>
-        ///     服务描述
-        /// </summary>
-        public abstract string ServiceDescription { get; }
 
         /// <summary>
         ///     启动服务
